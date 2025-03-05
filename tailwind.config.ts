@@ -23,6 +23,7 @@ const config: Config = {
           10: "#7839EE",
         },
       },
+      safelist: ["border-[#7839EE]"],
     },
   },
   plugins: [],
