@@ -11,8 +11,12 @@ import {
   radioStyles,
 } from "@/src/constants";
 import { AppButton } from "../shared/app-button";
+import { useState } from "react";
 
 export const CreateWebhook = () => {
+  const [radioVal, setRadioVal] = useState<string>(
+    projectsArr?.[0].label ?? ""
+  );
   return (
     <section className="flex flex-col gap-2">
       <PanelHeading text="Create Webhook" />
@@ -21,31 +25,33 @@ export const CreateWebhook = () => {
         {/* Projects Section */}
         <div className="flex flex-col gap-1">
           <PanelHeading text="Projects" />
-          <figure className="flex items-center gap-4">
-            {projectsArr.map((item, idx) => (
-              <Radio
-                classNames={{
-                  radio:
-                    "!rounded-full !hover-rounded-lg border border-[#D0D5DD]",
-                }}
-                value={String(idx + 1)}
-                styles={radioStyles}
-                size="xs"
-                color="#7839ee"
-                key={idx}
-                label={
-                  <p className="text-normal-13 text-primary-75">
-                    {item?.label}{" "}
-                    {item?.tag && (
-                      <span className="p-1 rounded-md text-medium-12 bg-violet-5 w-fit text-violet-10">
-                        {item?.tag}
-                      </span>
-                    )}{" "}
-                  </p>
-                }
-              />
-            ))}
-          </figure>
+          <Radio.Group value={radioVal} onChange={(val) => setRadioVal(val)}>
+            <figure className="flex items-center gap-4">
+              {projectsArr.map((item, idx) => (
+                <Radio
+                  classNames={{
+                    radio:
+                      "!rounded-full !hover-rounded-lg border border-[#D0D5DD]",
+                  }}
+                  value={item?.label}
+                  styles={radioStyles}
+                  size="xs"
+                  color="#7839ee"
+                  key={idx}
+                  label={
+                    <p className="text-normal-13 text-primary-75">
+                      {item?.label}{" "}
+                      {item?.tag && (
+                        <span className="p-1 rounded-md text-medium-12 bg-violet-5 w-fit text-violet-10">
+                          {item?.tag}
+                        </span>
+                      )}{" "}
+                    </p>
+                  }
+                />
+              ))}
+            </figure>
+          </Radio.Group>
         </div>
         {/* Events Section */}
         <figure className="flex flex-col gap-1">
