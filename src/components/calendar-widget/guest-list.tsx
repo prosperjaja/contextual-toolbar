@@ -55,8 +55,10 @@ export const GuestList = () => {
                     : idx !== 0
                     ? "-ml-[.75rem]"
                     : null,
-                  selected === guest?.id ? "border-violet-10 shadow-lg" : null,
-                  "border-[2.5px] border-white rounded-full !size-[2rem] transition-all duration-200"
+                  selected === guest?.id
+                    ? "border-[#7839EE] shadow-boxShadow-purple-glow"
+                    : "border-white",
+                  "border-[2.5px]  rounded-full !size-[2rem] transition-all duration-200"
                 )}
               />
             ))}

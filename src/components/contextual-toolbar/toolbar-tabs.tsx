@@ -32,7 +32,7 @@ export const ToolbarTabs = () => {
         </motion.div>
       </AnimatePresence>
       <footer className="w-full flex items-center p-1 gap-1.5">
-        <div className="flex-1 flex items-center overflow-x-scroll gap-2 border-r border-[#e8e8e8] no-scrollbar">
+        <div className="flex-1 flex items-center overflow-x-scroll gap-2 border-r border-[#e8e8e8] no-scrollbar pr-2">
           {tabsArr.map((item, idx) => (
             <button
               onClick={() => setActiveTab(item?.id)}

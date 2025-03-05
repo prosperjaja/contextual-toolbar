@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}  antialiased`}>
         <Toaster position="bottom-right" />
-        <MantineProvider>
+        <MantineProvider theme={{ cursorType: "pointer" }}>
           <div className="flex flex-col h-dvh overflow-auto p-[clamp(1.5rem,2.875vw,2.875rem)] bg-white">
             <main className="flex flex-col flex-1 overflow-auto border rounded-3xl border-[#09090B0D] p-[clamp(2rem,6.25vw,6.25rem)] h-full max-w-[1440px] mx-auto w-full">
               {children}

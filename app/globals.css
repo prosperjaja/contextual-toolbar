@@ -6,19 +6,3 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none !important;
 }
-
-.text-medium-16 {
-  @apply text-base font-medium leading-[24px];
-}
-.text-medium-14 {
-  @apply text-sm font-medium leading-[20px];
-}
-.text-normal-14 {
-  @apply text-sm font-normal leading-[20px];
-}
-.text-normal-13 {
-  @apply text-[13px] font-normal leading-[19.5px];
-}
-.text-medium-12 {
-  @apply text-xs font-medium leading-[16px];
-}
