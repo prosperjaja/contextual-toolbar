@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { PanelHeading } from "./panel-heading";
 import { Switch, Tooltip } from "@mantine/core";
 import { TransparentButton } from "../shared/transparent-button";
@@ -17,7 +18,10 @@ export const ShareWorkspace = () => {
   const [isCopied, setIsCopied] = useState(false);
 
   return (
-    <section className="rounded-xl border border-[#f3f3f3] bg-[#fcfcfc] p-3 flex flex-col gap-2">
+    <motion.section
+      className="rounded-xl border border-[#f3f3f3] bg-[#fcfcfc] p-3 flex flex-col gap-2"
+      layout
+    >
       <div className="flex items-center gap-4 justify-between">
         <PanelHeading text={isSharing ? "Sharing is on" : "Sharing is off"} />
         {isSharing && (
@@ -31,38 +35,59 @@ export const ShareWorkspace = () => {
         )}
       </div>
       <div className="flex items-center gap-4 w-full">
-        {isSharing ? (
-          <div className="flex flex-col gap-1 flex-1 transition-all ease-in-out duration-300">
-            <TextInput value={link} />
-            <Tooltip withArrow arrowSize={8} label="Copy link" color="#292929">
-              <SecondaryButton
-                text={isCopied ? "Copied!" : "Copy"}
-                icon={
-                  isCopied ? (
-                    <FaCheck size={16} color="#292929" />
-                  ) : (
-                    <IoCopyOutline size={16} color="#292929" />
-                  )
-                }
-                className="!py-1 !rounded-lg"
-                onClick={async () => {
-                  if (!isSharing) return;
-                  await navigator.clipboard.writeText(link ?? "");
-                  setIsCopied(true);
-                  successNotification("Link to secret key copied");
-                  setTimeout(() => {
-                    setIsCopied(false);
-                  }, 2000);
-                }}
-              />
-            </Tooltip>
-          </div>
-        ) : (
-          <p className="text-normal-13 text-primary-75 flex-1">
-            To share your workspace with other people you need to publish it
-            first.
-          </p>
-        )}
+        <AnimatePresence mode="wait">
+          {isSharing ? (
+            <motion.div
+              key="sharing-on"
+              className="flex flex-col gap-1 flex-1"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <TextInput value={link} />
+              <Tooltip
+                withArrow
+                arrowSize={8}
+                label="Copy link"
+                color="#292929"
+              >
+                <SecondaryButton
+                  text={isCopied ? "Copied!" : "Copy"}
+                  icon={
+                    isCopied ? (
+                      <FaCheck size={16} color="#292929" />
+                    ) : (
+                      <IoCopyOutline size={16} color="#292929" />
+                    )
+                  }
+                  className="!py-1 !rounded-lg"
+                  onClick={async () => {
+                    if (!isSharing) return;
+                    await navigator.clipboard.writeText(link ?? "");
+                    setIsCopied(true);
+                    successNotification("Link to secret key copied");
+                    setTimeout(() => {
+                      setIsCopied(false);
+                    }, 2000);
+                  }}
+                />
+              </Tooltip>
+            </motion.div>
+          ) : (
+            <motion.p
+              key="sharing-off"
+              className="text-normal-13 text-primary-75 flex-1"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              To share your workspace with other people you need to publish it
+              first.
+            </motion.p>
+          )}
+        </AnimatePresence>
         {!isSharing && (
           <Switch
             styles={switchStyles}
@@ -77,6 +102,6 @@ export const ShareWorkspace = () => {
         <TransparentButton text="Cancel" />
         <AppButton text="Create secret key" />
       </footer>
-    </section>
+    </motion.section>
   );
 };
